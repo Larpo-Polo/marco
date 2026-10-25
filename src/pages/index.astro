@@ -16,6 +16,7 @@ const title = "Marco Search";
     <main class="home">
   <img src="/marco.png" alt="Marco Search" class="logo-img" />
       <a class="logo" href="/">marco<span>.</span></a>
+
       <form action="/search" method="GET" class="search-form">
         <label class="sr-only" for="query">Search the web</label>
 
@@ -28,9 +29,8 @@ const title = "Marco Search";
           required
         />
 
-        <button type="submit">Search</button>
+        <button type="submit"><img src="/search.svg" alt="Search" height="20px" /></button>
       </form>
-
       <p class="hint">Simple. Fast. Focused.</p>
     </main>
   </body>
@@ -81,32 +81,35 @@ const title = "Marco Search";
     flex: 1;
     min-width: 0;
     padding: 16px 20px;
-    border: 1px solid #303541;
-    border-radius: 14px;
+    border: 1px solid #30354163;
+    border-top-left-radius: 40px;
+    border-bottom-left-radius: 40px;
     background: #eabc5f45;
-    color: white;
+    color: rgb(11, 11, 11);
     font: inherit;
     outline: none;
   }
 
   .search-form input:focus {
-    border-color: #8b9cff;
+    border-color: #f9a51e;
   }
 
   .search-form button {
     padding: 0 22px;
-    border: 0;
-    border-radius: 14px;
+    border: 1px solid #30354163;
+    border-top-right-radius: 40px;
+    border-bottom-right-radius: 40px;
     background: #eabb5f;
     color: #ffffff;
     font: inherit;
     font-weight: 650;
     cursor: pointer;
+    margin-left:-10px;
   }
 
   .search-form button:hover {
     background: #f4c870;
-	transition: background 0.3s ease;
+	  transition: background 0.3s ease;
   }
 
   .hint {
