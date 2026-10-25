@@ -1,16 +1,144 @@
+
 ---
+const title = "Marco Search";
 ---
 
+<!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content="Search the web with Marco." />
+    <title>{title}</title>
+  </head>
+
+  <body>
+    <main class="home">
+  <img src="/marco.png" alt="Marco Search" class="logo-img" />
+      <a class="logo" href="/">marco<span>.</span></a>
+      <form action="/search" method="GET" class="search-form">
+        <label class="sr-only" for="query">Search the web</label>
+
+        <input
+          id="query"
+          name="q"
+          type="search"
+          placeholder="What are you looking for?"
+          autocomplete="off"
+          required
+        />
+
+        <button type="submit">Search</button>
+      </form>
+
+      <p class="hint">Simple. Fast. Focused.</p>
+    </main>
+  </body>
 </html>
+
+<style>
+  :global(*) {
+    box-sizing: border-box;
+  }
+
+  :global(body) {
+    margin: 0;
+    min-height: 100vh;
+    background: #fffffa;
+    color: #f5f5f5;
+    font-family: system-ui, sans-serif;
+  }
+
+  .home {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap:0;
+  }
+
+  .logo {
+    color: #612118;
+    text-decoration: none;
+    font-size: clamp(4rem, 7vw, 7rem);
+    font-weight: 750;
+	margin-top:-20px;
+    letter-spacing: -0.09em;
+  }
+
+  .logo span {
+    color: #eabb5f;
+  }
+
+  .search-form {
+    display: flex;
+    gap: 10px;
+    width: min(100%, 700px);
+  }
+
+  .search-form input {
+    flex: 1;
+    min-width: 0;
+    padding: 16px 20px;
+    border: 1px solid #303541;
+    border-radius: 14px;
+    background: #eabc5f45;
+    color: white;
+    font: inherit;
+    outline: none;
+  }
+
+  .search-form input:focus {
+    border-color: #8b9cff;
+  }
+
+  .search-form button {
+    padding: 0 22px;
+    border: 0;
+    border-radius: 14px;
+    background: #eabb5f;
+    color: #ffffff;
+    font: inherit;
+    font-weight: 650;
+    cursor: pointer;
+  }
+
+  .search-form button:hover {
+    background: #f4c870;
+	transition: background 0.3s ease;
+  }
+
+  .hint {
+    margin-top: 24px;
+    color: #777d8b;
+    font-size: 0.85rem;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+  .logo-img {
+	width: 150px;
+	height: auto;
+	border-radius: 50%;
+  }
+
+  @media (max-width: 480px) {
+    .search-form {
+      flex-direction: column;
+    }
+
+    .search-form button {
+      min-height: 48px;
+    }
+  }
+</style>
