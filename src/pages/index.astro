@@ -55,6 +55,7 @@ const title = "Marco Search";
     font-family: system-ui, sans-serif;
   }
 
+
   .home {
     flex: 1;
     display: flex;
@@ -78,6 +79,9 @@ const title = "Marco Search";
   }
 
   .search-form {
+    position: relative;
+    z-index: 2;
+    flex-shrink: 0;
     display: flex;
     gap: 10px;
     width: min(100%, 700px);
@@ -90,7 +94,7 @@ const title = "Marco Search";
     border: 1px solid #30354163;
     border-top-left-radius: 40px;
     border-bottom-left-radius: 40px;
-    background: #ffffff;
+    background: transparent;
     color: rgb(11, 11, 11);
     font: inherit;
     outline: none;
@@ -106,7 +110,7 @@ const title = "Marco Search";
     border: 1px solid #30354163;
     border-top-right-radius: 40px;
     border-bottom-right-radius: 40px;
-    background: #ffffff;
+    background: transparent;
     color: #1f2937;
     font: inherit;
     font-weight: 650;
