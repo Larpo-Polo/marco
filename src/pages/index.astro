@@ -1,6 +1,7 @@
 
 ---
 const title = "Marco Search";
+
 ---
 
 <!doctype html>
@@ -31,14 +32,38 @@ const title = "Marco Search";
 
         <button type="submit"><img src="/search.svg" alt="Search" height="20px" /></button>
       </form>
-      <p class="hint">Simple. Fast. Focused.</p> 
-    </main>
+      <p class="hint">Simple. Fast. Effective.</p>
+
+
+          </main>
      <div class="footer">
         <a class="footer-link" href="">About Us</a> | 
         <a class="footer-link" href="">Contact</a> 
       </div>
   </body>
 </html>
+
+<script>
+  const searchInput = document.querySelector(
+    "#query"
+  ) as HTMLInputElement;
+
+  const searchForm = document.querySelector(
+    ".search-form"
+  ) as HTMLFormElement;
+
+  const suggestions = document.querySelectorAll(
+    ".suggestion"
+  );
+
+  suggestions.forEach((suggestion) => {
+    suggestion.addEventListener("click", () => {
+      searchInput.value = suggestion.textContent?.trim() || "";
+
+      searchForm.requestSubmit();
+    });
+  });
+</script>
 
 <style>
   :global(*) {
@@ -83,39 +108,46 @@ const title = "Marco Search";
     z-index: 2;
     flex-shrink: 0;
     display: flex;
-    gap: 10px;
+    align-items: center;
     width: min(100%, 700px);
+    border: 1px solid #30354163;
+    border-radius: 40px;
+    background: transparent;
   }
 
   .search-form input {
     flex: 1;
     min-width: 0;
     padding: 16px 20px;
-    border: 1px solid #30354163;
-    border-top-left-radius: 40px;
-    border-bottom-left-radius: 40px;
+    border: 0;
+    border-radius: 40px;
     background: transparent;
     color: rgb(11, 11, 11);
     font: inherit;
     outline: none;
   }
 
-  .search-form input:focus {
+  .search-form:focus-within {
     border-color: #b8bcc5;
-    box-shadow: 0 0 0 2px rgba(17, 24, 39, 0.05);
+    box-shadow: 0 0 35px #612118;
+    transition: all 0.3s ease-in;
+    transform: scale(1.02);
   }
 
+
   .search-form button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 0 22px;
-    border: 1px solid #30354163;
-    border-top-right-radius: 40px;
-    border-bottom-right-radius: 40px;
+    border: 0;
+    border-radius: 0 40px 40px 0;
     background: transparent;
     color: #1f2937;
     font: inherit;
     font-weight: 650;
     cursor: pointer;
-    margin-left:-10px;
+    align-self: stretch;
   }
 
   .search-form button:hover {
@@ -145,6 +177,7 @@ const title = "Marco Search";
 	height: auto;
 	border-radius: 50%;
   }
+
   .footer{
     box-sizing: border-box;
     display: flex;
@@ -165,13 +198,4 @@ const title = "Marco Search";
     text-decoration: underline;
   }
 
-  @media (max-width: 480px) {
-    .search-form {
-      flex-direction: column;
-    }
-
-    .search-form button {
-      min-height: 48px;
-    }
-  }
 </style>
