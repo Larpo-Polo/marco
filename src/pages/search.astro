@@ -1,0 +1,226 @@
+---
+const url = new URL(Astro.request.url);
+const query = url.searchParams.get('q') || '';
+const normalizedQuery = query.trim();
+const results = normalizedQuery
+  ? [
+      {
+        title: `Results for “${normalizedQuery}”`,
+        url: `https://www.example.com/search?q=${encodeURIComponent(normalizedQuery)}`,
+        snippet: `Showing relevant matches for “${normalizedQuery}” on Marco Search.`,
+      },
+      {
+        title: `More information about ${normalizedQuery}`,
+        url: `https://www.example.com/results/${encodeURIComponent(normalizedQuery)}`,
+        snippet: `Explore related pages and quick references for ${normalizedQuery}.`,
+      },
+    ]
+  : [];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{normalizedQuery ? `Search results for ${normalizedQuery} | Marco Search` : 'Search | Marco Search'}</title>
+    <meta
+      name="description"
+      content={normalizedQuery
+        ? `Search results for ${normalizedQuery} on Marco Search.`
+        : 'Search the web with Marco.'}
+    />
+  </head>
+
+  <body>
+    <main class="page">
+      <header class="topbar">
+        <a class="brand" href="/" aria-label="Marco home">marco<span>.</span></a>
+
+        <form action="/search" method="GET" class="search-form">
+          <label class="sr-only" for="q">Search</label>
+          <input
+            id="q"
+            name="q"
+            type="search"
+            value={normalizedQuery}
+            placeholder="Search the web"
+            autocomplete="off"
+            required
+          />
+          <button type="submit">Search</button>
+        </form>
+      </header>
+
+      <section class="results">
+        {normalizedQuery ? (
+          <>
+            <p class="summary">About {results.length} results for <strong>{normalizedQuery}</strong></p>
+            {results.map((item) => (
+              <article class="result-card">
+                <a href={item.url} class="result-link">{item.title}</a>
+                <div class="result-url">{item.url}</div>
+                <p>{item.snippet}</p>
+              </article>
+            ))}
+          </>
+        ) : (
+          <div class="empty-state">
+            <h1>No search term provided</h1>
+            <p>Please enter a keyword to search.</p>
+          </div>
+        )}
+      </section>
+    </main>
+  </body>
+</html>
+
+<style>
+  :global(*) {
+    box-sizing: border-box;
+  }
+
+  :global(body) {
+    margin: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #ffffff;
+    color: #111827;
+  }
+
+  .page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 32px 20px 60px;
+  }
+
+  .topbar {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 32px;
+  }
+
+  .brand {
+    color: #612118;
+    text-decoration: none;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -0.08em;
+    line-height: 1;
+  }
+
+  .brand span {
+    color: #eabb5f;
+  }
+
+  .search-form {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    max-width: 800px;
+  }
+
+  .search-form input {
+    flex: 1;
+    min-width: 0;
+    padding: 14px 18px;
+    border: 1px solid #d1d5db;
+    border-radius: 999px;
+    font-size: 1rem;
+    background: white;
+  }
+
+  .search-form button {
+    border: 0;
+    border-radius: 999px;
+    background: #612118;
+    color: white;
+    padding: 14px 22px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .results {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding-left: 8px;
+  }
+
+  .summary {
+    color: #4b5563;
+    font-size: 1rem;
+    margin: 0 0 8px;
+  }
+
+  .result-card {
+    background: #fff;
+    border: 1px solid #ececec;
+    border-radius: 18px;
+    padding: 20px 18px;
+    box-shadow: 0 2px 8px rgba(17, 24, 39, 0.02);
+  }
+
+  .result-link {
+    display: inline-block;
+    color: #1d4ed8;
+    font-size: clamp(1.05rem, 2vw, 1.4rem);
+    text-decoration: none;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  .result-url {
+    font-size: 0.8rem;
+    color: #198754;
+    margin-bottom: 8px;
+    word-break: break-all;
+  }
+
+  .result-card p {
+    margin: 0;
+    color: #4b5563;
+    line-height: 1.6;
+  }
+
+  .empty-state {
+    background: #fff;
+    border: 1px solid #ececec;
+    border-radius: 18px;
+    padding: 32px 24px;
+  }
+
+  .empty-state h1 {
+    margin: 0 0 8px;
+    font-size: 1.8rem;
+  }
+
+  .empty-state p {
+    margin: 0;
+    color: #4b5563;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+    padding: 0;
+    margin: -1px;
+  }
+
+  @media (max-width: 700px) {
+    .topbar {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .search-form {
+      width: 100%;
+    }
+  }
+</style>
